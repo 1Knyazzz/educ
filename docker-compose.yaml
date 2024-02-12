@@ -1,0 +1,22 @@
+version: '3'
+
+services:
+
+  postgres:
+    image: postgres:15.2-alpine
+    container_name: db_postgres
+    restart: always
+    environment:
+      POSTGRES_USER: 'root'
+      POSTGRES_DB: "test"
+      POSTGRES_PASSWORD: "1"
+    ports:
+      - "5432:5432"
+    volumes:
+      - databases:/var/lib/postgresql/data
+      - ./postgresql/init.sql:/docker-entrypoint-initdb.d/init.sql
+    shm_size: 512M
+
+volumes:
+  databases:
+    driver: local
