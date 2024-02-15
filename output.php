@@ -2,17 +2,21 @@
     $title = 'output';
     require 'static/header.php';
     require 'FeedbackRepository.php';
+    require 'config/connect.php';
+
+    $connect = new DbConnection();
+    $initDb = $connect->getInstance();
+    $connection = $initDb -> initDbConnection();
 
 
 $page =isset($_GET['page']) ? $_GET['page'] : 1;
 $limit = 5;
 $offset = $limit * ($page-1);
 
-$selectDB = new FeedbackRepository();
+$selectDB = new FeedbackRepository($connection);
 $totalPage= $selectDB ->selectPagen($limit);
-
 # запрос данных
-$result = $selectDB -> queryOut($limit, $offset)
+$result = $selectDB -> queryOut($limit, $offset);
 ?><h1>output</h1>
 <div class='container'>
     <div class="row">
@@ -32,6 +36,7 @@ $result = $selectDB -> queryOut($limit, $offset)
                             <a class="page-link" href="?page=<?php echo $i-1?>"><?php echo $i-1?></a>
                         </li>
                     <?php endwhile;?>
+
                 </ul>
             </nav>
         </div>

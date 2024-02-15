@@ -2,6 +2,11 @@
     $title = 'input';
     require 'static/header.php';
     require 'FeedbackRepository.php';
+    require 'config/connect.php';
+
+    $connect = new DbConnection();
+    $initDb = $connect->getInstance();
+    $connection = $initDb -> initDbConnection();
     ?>
 
 <h1>input</h1>
@@ -23,19 +28,15 @@
 <?php
 if ($_POST)
 {
-    $product = new FeedbackRepository();
-    $product->name=($_POST['username']);
-    $product->email=($_POST['email']);
-    $product->password=($_POST['password']);
-    $product->number=($_POST['number']);
-    $product->description=($_POST['description']);
+    $product = new FeedbackRepository($connection);
+    $insertID =$product->create($_POST['username'], $_POST['email'], $_POST['password'], $_POST['number'], $_POST['description']);
 
 
-    if ($product->create()) {
-        echo '<script>alert("successful");</script>';
+    if ($insertID > 0) {
+        echo '<script>alert("successful" + <?=$insert?>)</script>';
     }
     else {
-        echo '<script>alert("not completed");</script>';
+        echo '<script>alert("not completed" )</script>';
     }
 }
 
