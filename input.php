@@ -24,7 +24,14 @@
 if ($_POST)
 {
     $product = new FeedbackRepository();
-    if ($product->create($connection)) {
+    $product->name=($_POST['username']);
+    $product->email=($_POST['email']);
+    $product->password=($_POST['password']);
+    $product->number=($_POST['number']);
+    $product->description=($_POST['description']);
+
+
+    if ($product->create()) {
         echo '<script>alert("successful");</script>';
     }
     else {

@@ -2,7 +2,11 @@
 
 class DbConnection
 {
+    private $host = 'pgsql:host=localhost;port=5432;dbname=test';
+    private $username = 'root';
+    private $password = '1';
     protected static $instance;
+    public $connection;
 
     public static function getInstance()
     {
@@ -12,10 +16,16 @@ class DbConnection
         return self::$instance;
     }
 
-    public static function initDbConnection($Host, $User, $Password): PDO
+    public function initDbConnection(): PDO
     {
-        $initDb = new PDO($Host, $User, $Password);
-        return $initDb;
+        $this -> connection = null;
+
+        try {
+            $this->connection = new PDO($this->host, $this->username, $this->password);
+        } catch (PDOException $exception) {
+            echo "Ошибка соединения: " . $exception->getMessage();
+        }
+        return $this->connection;
     }
 
     private function __construct(){
@@ -24,6 +34,3 @@ class DbConnection
     public function __wakeup(){}
 
 }
-
-
-

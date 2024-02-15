@@ -1,19 +1,18 @@
 <?php
     $title = 'output';
     require 'static/header.php';
-    require 'selectData.php';
+    require 'FeedbackRepository.php';
 
 
-# пагинация
 $page =isset($_GET['page']) ? $_GET['page'] : 1;
 $limit = 5;
 $offset = $limit * ($page-1);
 
-$selectDB = new selectData();
-$totalPage= $selectDB ->selectPagen($connection, $limit);
+$selectDB = new FeedbackRepository();
+$totalPage= $selectDB ->selectPagen($limit);
 
 # запрос данных
-$result = $selectDB -> query_out($connection, $limit, $offset)
+$result = $selectDB -> queryOut($limit, $offset)
 ?><h1>output</h1>
 <div class='container'>
     <div class="row">

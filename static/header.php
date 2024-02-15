@@ -1,12 +1,4 @@
 <?php
-require 'connect.php';
-
-define('HOST', 'pgsql:host=localhost;port=5432;dbname=test');
-define('USER', 'root');
-define('PASSWORD', '1');
-
-$initDb = DbConnection::getInstance();
-$connection = $initDb -> initDbConnection(HOST, USER, PASSWORD);
 
 ?>
 <!doctype html>
