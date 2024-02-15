@@ -1,3 +1,14 @@
+<?php
+require 'connect.php';
+
+define('HOST', 'pgsql:host=localhost;port=5432;dbname=test');
+define('USER', 'root');
+define('PASSWORD', '1');
+
+$initDb = DbConnection::getInstance();
+$connection = $initDb -> initDbConnection(HOST, USER, PASSWORD);
+
+?>
 <!doctype html>
 <html lang="en">
 <head>
@@ -11,7 +22,7 @@
 </head>
 <body>
 <header>
-    <a href ='input.php' class="navig">ввод</a>
-    <a href ='output.php' class="navig">вывод</a>
+    <a href ='input.php' class="navig">input</a>
+    <a href ='output.php' class="navig">output</a>
 </header>
 <main role="main">

@@ -1,11 +1,11 @@
 <?php
     $title = 'input';
     require 'static/header.php';
-
+    require 'FeedbackRepository.php';
     ?>
 
 <h1>input</h1>
-<form action="check_data.php" method="post" class="form-style">
+<form action="" method="post" class="form-style">
     <div class="form-style">
         <label for="name">Enter your name: </label>
         <input type="text" name="username" placeholders="enter nickname" class="form-control" required><br>
@@ -20,7 +20,17 @@
         <input type="submit" value="enter data">
     </div>
 </form>
-
 <?php
+if ($_POST)
+{
+    $product = new FeedbackRepository();
+    if ($product->create($connection)) {
+        echo '<script>alert("successful");</script>';
+    }
+    else {
+        echo '<script>alert("not completed");</script>';
+    }
+}
+
     require 'static/footer.php';
 ?>

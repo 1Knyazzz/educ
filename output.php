@@ -1,19 +1,20 @@
 <?php
     $title = 'output';
     require 'static/header.php';
-    require 'static/connect.php';
-    require 'function.php';
+    require 'selectData.php';
 
 
-echo "<h1>output</h1>";
 # пагинация
 $page =isset($_GET['page']) ? $_GET['page'] : 1;
 $limit = 5;
 $offset = $limit * ($page-1);
-$total_page = pagen($conn, $limit);
+
+$selectDB = new selectData();
+$totalPage= $selectDB ->selectPagen($connection, $limit);
+
 # запрос данных
-$result = query_out($conn, $limit, $offset)
-?>
+$result = $selectDB -> query_out($connection, $limit, $offset)
+?><h1>output</h1>
 <div class='container'>
     <div class="row">
         <div class="col-md-9">
@@ -26,7 +27,7 @@ $result = query_out($conn, $limit, $offset)
             <nav aria-label="Page navigation example">
                 <ul class="pagination justify-content-center">
                     <?php $i = 1;
-                    while($i <= $total_page):
+                    while($i <= $totalPage):
                         $i++;?>
                         <li class="page-item">
                             <a class="page-link" href="?page=<?php echo $i-1?>"><?php echo $i-1?></a>
